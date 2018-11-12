@@ -1,0 +1,14 @@
+{
+    "name": "rx-student-code-749/INFO2180_lab_07",
+    "license": "proprietary",
+    "type": "project",
+    "require": {
+        "gabordemooij/redbean": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "R",
+            "email": "rapheekwon@gmail.com"
+        }
+    ]
+}
