@@ -1,0 +1,111 @@
+//@import url('https://fonts.googleapis.com/css?family=Great+Vibes|Life+Savers|Patua+One|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes|Life+Savers|Roboto:300');
+@import "vendor/normalize";
+@import "palette";
+@import "variables";
+
+a {
+    color: $color3;
+    text-decoration: none;
+    
+    &:hover{
+        color: lighten($color3, 2);
+        text-decoration: underline;
+    }
+}
+h1, h2, h3, h4, h5, h6 {
+    font: $title-font;
+}
+
+body {
+    background: $color4;
+    color: $color2;
+    font: $script-font;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    align-content: center;
+    font-size: 10pt;
+    
+    
+    div.page-container {
+        text-align: center;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 80em;
+        height: 70%;
+        //background: $color3;
+        //padding: 0 2.5em;
+    
+        h1 {
+            font-size: 42pt;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            opacity: 70%;
+        }
+        
+        #controls {
+            margin-bottom: 2em;
+            
+            label {
+                display: none;
+            }
+    
+            input[type="text"]#country, a#lookup {
+                margin: 0;
+                padding: 2em;
+                display: inline-block;
+                background: $color5;
+                border: none;
+                outline: none;
+                color: $color2;
+            }
+    
+            $radius: 2em;
+    
+            input[type="text"]#country {
+                border-top-left-radius: $radius;
+                border-bottom-left-radius: $radius;
+                min-width: 20em;
+                margin: 0;
+            }
+    
+            a#lookup {
+                border-top-right-radius: $radius;
+                border-bottom-right-radius: $radius;
+                text-transform: uppercase;
+                border-left: 1px solid $color3;
+                margin: 0 0 0 -.50em;
+                font-weight: bold;
+        
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+        
+        #result {
+            text-align: start;
+            
+            ul {
+                list-style: none;
+                
+                li {
+                    padding: 1em;
+                    font-size: 12pt;
+                
+                    & + li {
+                        padding-top: .5em;
+                    }
+                    &:nth-child(odd) {
+                        background: $color5;
+                    }
+                }
+            }
+        }
+    }
+}
