@@ -1,7 +1,8 @@
 <?php use RedBeanPHP\R;
+
 if (!array_key_exists('C9_USER', $_ENV)) {
-     require_once __DIR__ . "/app/inc.php";
-     $conn = R::getPDO();
+    require_once __DIR__ . "/app/inc.php";
+    $conn = R::getPDO();
 } else {
     $host = getenv('IP');
     $username = getenv('C9_USER');
@@ -11,30 +12,32 @@ if (!array_key_exists('C9_USER', $_ENV)) {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 }
 
-if (!array_key_exists('q', $_GET)) {
-    $stmt = $conn->query("SELECT * FROM countries");
+$default_response = "<div><h3>No Countries Found!</h3></div>";
 
-    $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+if (array_key_exists('all', $_GET)) {
+    if ($_GET['all'] == true) {
+        $stmt = $conn->query("SELECT * FROM countries");
 
-    $html =  '<ul>';
-    foreach ($results as $row)
-        $html .= '<li>' . $row['name'] . ' is ruled by ' . $row['head_of_state'] . '</li>';
-    $html .= '</ul>';
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-    echo $html;
-} else {
-    $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%{$_GET['q']}%'");
+        $html = '<ul>';
+        foreach ($results as $row)
+            $html .= '<li>' . $row['name'] . ' is ruled by ' . $row['head_of_state'] . '</li>';
+        $html .= '</ul>';
+
+        echo $html;
+    } else echo $default_response;
+} else if (array_key_exists('country', $_GET)) {
+    $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%{$_GET['country']}%'");
 //    $_GET['q'] = ucwords($_GET['q']);
 
     $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-    $html =  '<ul>';
+    $html = '<ul>';
     foreach ($results as $row) {
         $tmp = "<li>{$row['name']} is ruled by {$row['head_of_state']}</li>";
-        $html .= preg_replace("/\w*?".preg_quote($_GET['q'])."\w*/i", "<strong>$0</strong>", $tmp);
-//        $html .= str_ireplace($_GET['q'], "<strong>{$_GET['q']}</strong>", $tmp);
+        $html .= preg_replace("/\w*?" . preg_quote($_GET['country']) . "\w*/i", "<strong>$0</strong>", $tmp);
     }
-//        $html .= '<li>' . $row['name'] . ' is ruled by ' . $row['head_of_state'] . '</li>';
     $html .= '</ul>';
     echo $html;
-}
+} else echo $default_response;

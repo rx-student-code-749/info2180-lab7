@@ -5,8 +5,10 @@ function fn (e) {
     let results = $("#result");
     let uri = "world.php";
 
-    if (query.val() !== "")
-        uri += "?q=" + query.val();
+    if ($("#show-all:checked").length === 1)
+        uri += "?all=true";
+    else if (query.val() !== "")
+        uri += "?country=" + query.val();
 
     $.ajax({
         url: uri
