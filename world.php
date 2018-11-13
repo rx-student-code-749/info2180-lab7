@@ -12,7 +12,7 @@ if (!array_key_exists('C9_USER', $_ENV)) {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 }
 
-$default_response = "<div><h3>No Countries Found!</h3></div>";
+$default_response = "<h3>No Countries Found!</h3>";
 
 if (array_key_exists('all', $_GET)) {
     if ($_GET['all'] == true) {
